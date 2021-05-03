@@ -24,10 +24,7 @@ fn main() {
         .trim_end()
         .to_owned();
     let tokens = lex(contents);
-    println!("tokens:\n{:?}", tokens);
     let claim = Claim::parse(&tokens.unwrap()).unwrap();
-    println!("AST:\n{:?}", claim);
-    println!("Latex:\n{}", claim.latex());
     let mut tree = ProofTree::Open(claim);
     tree = proof_search(tree);
     println!("{}", tree.latex());
