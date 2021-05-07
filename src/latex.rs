@@ -100,7 +100,6 @@ impl Latex for Claim {
                 s.push_str(&f.latex());
             }
         }
-
         s
     }
 }
@@ -132,13 +131,14 @@ impl Latex for ProofTree {
                 proof_rule,
             } => {
                 let mut s = String::new();
-                s.push_str(r"\frac{");
+                s.push_str(r"\inferrule*[Right=$");
+                s.push_str(&proof_rule.latex());
+                s.push_str(r"$]{ ");
                 let proof_strings: Vec<String> = proof.iter().map(|t| t.latex()).collect();
-                s.push_str(&proof_strings.join(r"\quad "));
+                s.push_str(&proof_strings.join(r" \\ "));
                 s.push_str(r"}{");
                 s.push_str(&claim.latex());
-                s.push_str(r"}\quad ");
-                s.push_str(&proof_rule.latex());
+                s.push_str(r"}");
                 s
             }
         }
